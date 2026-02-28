@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reverse String</title>
+
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #111827;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 10px 20px rgba(0,0,0,0.06);
+            --radius: 10px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        }
+
+        .page {
+            width: min(980px, calc(100% - 56px));
+            margin: 42px auto 60px;
+        }
+
+        h1 {
+            font-size: 56px;
+            line-height: 1.1;
+            margin: 0 0 18px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        label {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            height: 56px;
+            padding: 0 18px;
+            font-size: 22px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: rgba(11,95,255,0.45);
+            box-shadow: 0 0 0 4px rgba(11,95,255,0.12);
+        }
+
+        /* Hidden until 3+ characters */
+        .result-block {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .result-block.visible {
+            display: block;
+        }
+
+        .output {
+            font-size: 32px;
+            letter-spacing: 0.01em;
+            min-height: 40px;
+            word-break: break-word;
+            margin-top: 2px; /* directly under the textbox */
+        }
+
+        .copy-row {
+            margin-top: 12px; /* button under reversed text */
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+            font-weight: 700;
+            border-radius: var(--radius);
+            transition: transform 0.03s ease, opacity 0.15s ease;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+            padding: 12px 18px;
+            font-size: 22px;
+            box-shadow: var(--shadow);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover { opacity: 0.92; }
+        .btn-secondary:active { transform: translateY(1px); }
+
+        .helper {
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .toast {
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--muted);
+            min-height: 18px;
+        }
+
+        @media (max-width: 560px) {
+            h1 { font-size: 40px; }
+            input[type="text"] { font-size: 18px; }
+            .btn-secondary { font-size: 18px; }
+            .output { font-size: 24px; }
+        }
+    </style>
+
+    <!-- Ensures JS runs after HTML is parsed -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <main class="page">
+        <h1>Reverse String</h1>
+
+        <section class="input-row" aria-label="Reverse string tool">
+            <label for="textInput">Type any text to reverse</label>
+
+            <!-- 1) Input field -->
+            <input
+                id="textInput"
+                type="text"
+                placeholder="Hello, welcome to AI4Devs"
+                autocomplete="off"
+                spellcheck="false"
+            />
+
+            <!-- Hidden until 3+ characters -->
+            <div id="resultBlock" class="result-block" aria-label="Result block">
+                <!-- 2) Reversed text below input -->
+                <div id="output" class="output" aria-label="Reversed text output"></div>
+
+                <!-- 3) Copy button below reversed text -->
+                <div class="copy-row">
+                    <button id="copyBtn" class="btn-secondary" type="button" aria-label="Copy reversed text">
+                        Copy <span aria-hidden="true">📋</span>
+                    </button>
+                </div>
+
+                <div id="toast" class="toast" role="status" aria-live="polite"></div>
+            </div>
+
+            <div id="helper" class="helper">
+                Type at least 3 characters to show the reversed text and Copy button.
+            </div>
+        </section>
+    </main>
+</body>
+</html>
